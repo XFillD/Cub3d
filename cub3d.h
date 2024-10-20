@@ -143,5 +143,8 @@ void	ft_pixel_put(t_mlx *mlx, int x, int y, int color);
 float	angle_nor(float angle);
 void error(char  *error_text);
 
+/*CHECKS*/
+int map_check(t_game *game);
+
 
 #endif 

@@ -6,7 +6,7 @@
 /*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:56:52 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/19 17:53:25 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/10/20 13:19:06 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,14 @@ void render_mini_map2(t_mlx *mlx)
 {
     int x = 0;
     int y;
+    int row_len; 
+
+    row_len = 0; 
 
     while (x < mlx->game->map_h) {
-    y = 0;
-        while (y < mlx->game->map_w) {
+        y = 0;
+        row_len = ft_strlen(mlx->game->map[x]);
+        while (y < row_len) {
         if (mlx->game->map[x][y] == '0') 
             render_square(mlx, y, x, 0x000000, 0xFF0000FF);
         y++;  // Increment y in the inner loop
@@ -136,10 +140,14 @@ void render_mini_map(t_mlx *mlx)
 {
     int x = 0;
     int y;
+    int row_len; 
+
+    row_len = 0; 
 
     while (x < mlx->game->map_h) {
-    y = 0;
-        while (y < mlx->game->map_w) {
+        y = 0;
+        row_len = ft_strlen(mlx->game->map[x]);
+        while (y < row_len) {
         if (mlx->game->map[x][y] == '1')  
             render_square(mlx, y, x, 0xFFFFFF, 0xFF0000FF); 
         y++;  // Increment y inside the inner while loop

@@ -6,7 +6,7 @@
 #    By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/24 17:27:32 by yalechin          #+#    #+#              #
-#    Updated: 2024/10/19 17:41:29 by yalechin         ###   ########.fr        #
+#    Updated: 2024/10/20 15:36:45 by yalechin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ CFILES = cub3d.c \
 			ray_casting.c \
 			exit.c \
 			ft_utils.c \
-			render_wall.c
+			render_wall.c \
+			map_check.c
 OFILES = $(CFILES:.c=.o)
 
 FLAGS = -O3 -Wall -Wextra -Werror -g

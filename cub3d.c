@@ -6,7 +6,7 @@
 /*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:56:48 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/19 17:34:06 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/10/20 16:54:59 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,11 @@ int main(int argc, char **argv)
 	/*↑TESTING↑*/
 
 	map_size(game);
+	if(!map_check(game))
+	{
+		printf("map error!\n");
+		//exit(1);
+	}
 	mini_map_size(game);
 	find_player(game);
 	game_start(game); 
