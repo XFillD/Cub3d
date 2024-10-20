@@ -87,13 +87,23 @@ typedef struct s_ray
 
 } t_ray;
 
+typedef struct s_designConfig {
+    char *north_texture;
+    char *south_texture;
+    char *west_texture;
+    char *east_texture;
+    int floor_color[3];
+    int ceiling_color[3];
+} t_designConfig;
+
 typedef struct s_mlx
 {
     t_game *game; 
     t_player *player; 
     void	*p_mlx;
     mlx_image_t  *img; 
-    t_ray *ray; 
+    t_ray *ray;
+    t_designConfig *designConfig;
 }t_mlx;
 
 
@@ -107,9 +117,10 @@ int	check_inter(float angle, float *inter, float *step, int hrzntl);
 int	angle_check(float angle, char c);
 
 /*MAP FUNCTION*/
-int	map_read(t_game *game, char *file);
+int	map_read(t_game *game, t_mlx *mlx, char *file);
 void find_player(t_game* game);
 void map_size(t_game *game);
+void parse_design_config(t_designConfig *config, char **buffer, int rows);
 
 
 /*MINIMAP FUNCTIONS*/

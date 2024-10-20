@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:56:48 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/19 17:34:06 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/10/20 15:17:31 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void game_loop(void *p_mlx)
 
 	mlx = p_mlx; 
 	mlx_delete_image(mlx->p_mlx, mlx->img); 
-	mlx->img = mlx_new_image(mlx->p_mlx, S_W, S_H); 
+	mlx->img = mlx_new_image(mlx->p_mlx, S_W, S_H);
+	
+	 
 
 	hook(mlx, 0, 0); 
 	ray_caster(mlx); 
@@ -67,7 +69,7 @@ t_game *init_game()
 
 int main(int argc, char **argv)
 {
-
+	t_mlx mlx;
 	t_game *game; 
 	(void)argc;
 	(void)argv;
@@ -80,7 +82,7 @@ int main(int argc, char **argv)
 
 	game = init_game();
 
-	map_read(game, argv[1]); 
+	map_read(game, &mlx, argv[1]); 
 
 	/*↓TESTING↓*/
 	int x = 0; 
