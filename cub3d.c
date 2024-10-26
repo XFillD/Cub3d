@@ -6,7 +6,7 @@
 /*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:56:48 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/20 16:54:59 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/10/26 17:49:32 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,9 @@ int main(int argc, char **argv)
 {
 
 	t_game *game; 
-	(void)argc;
-	(void)argv;
+
+
+	check_argv(argv[1]);
 
 	if (argc != 2)
 	{
@@ -80,7 +81,11 @@ int main(int argc, char **argv)
 
 	game = init_game();
 
-	map_read(game, argv[1]); 
+	if(map_read(game, argv[1]))
+	{
+		free(game);
+		exit(1);
+	}
 
 	/*↓TESTING↓*/
 	int x = 0; 
@@ -93,11 +98,12 @@ int main(int argc, char **argv)
 	/*↑TESTING↑*/
 
 	map_size(game);
-	if(!map_check(game))
+	if(map_check(game))
 	{
 		printf("map error!\n");
-		//exit(1);
+		exit(1);
 	}
+	check_player(game);
 	mini_map_size(game);
 	find_player(game);
 	game_start(game); 
