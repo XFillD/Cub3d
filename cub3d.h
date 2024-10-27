@@ -150,4 +150,6 @@ int				map_check(t_game *game);
 void			check_argv(char *argv);
 void			check_player(t_game *game);
 
+void ft_exit_simple(t_game *game);
+
 #endif

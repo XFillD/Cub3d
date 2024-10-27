@@ -6,7 +6,7 @@
 /*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:56:48 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/26 17:49:32 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/10/27 18:06:14 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ void player_init(t_mlx *mlx)
     mlx->player->angle = M_PI; 
     mlx->player->fov = (FOV * M_PI) / 180; 
 }
+void close_game_callback(void *param)
+{
+    t_mlx *mlx = (t_mlx *)param;
+    ft_exit(mlx);
+    exit(0);
+}
 
 //init mlx and other structs 
 void game_start(t_game *game)
@@ -55,6 +61,7 @@ void game_start(t_game *game)
 
     mlx_loop_hook(mlx.p_mlx, &game_loop, &mlx);
     mlx_key_hook(mlx.p_mlx, &mlx_key, &mlx);
+	mlx_close_hook(mlx.p_mlx, close_game_callback, &mlx);
     mlx_loop(mlx.p_mlx);
 }
 
@@ -103,7 +110,6 @@ int main(int argc, char **argv)
 		printf("map error!\n");
 		exit(1);
 	}
-	check_player(game);
 	mini_map_size(game);
 	find_player(game);
 	game_start(game); 

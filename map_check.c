@@ -6,7 +6,7 @@
 /*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:46:46 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/26 17:01:24 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/10/27 17:19:48 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ void	check_player(t_game *game)
 		row++;
 	}
 	if (player == 0)
-	{
-		error("No player found!");
-		exit(1);
-	}
+		ft_exit_simple(game);
 }
 
 int	check_border(char *line)
@@ -134,5 +131,6 @@ int	map_check(t_game *game)
 {
 	if (check_borders(game) || space_check(game, 0, 0, 0))
 		return (FAIL);
+	check_player(game);
 	return (SUCCESS);
 }
