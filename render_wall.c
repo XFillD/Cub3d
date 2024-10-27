@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_wall.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:25:38 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/19 18:04:57 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/10/27 15:05:15 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,21 @@ void	draw_floor_ceiling(t_mlx *mlx, int ray, int top_pix, int bottom_pix)
 	int minimap_x =  mlx->game->m_map_x;
 	int minimap_y = mlx->game->m_map_y;
 
+	int floor_color = (mlx->designConfig->floor_color[0] << 24) |
+                      (mlx->designConfig->floor_color[1] << 16) |
+                      (mlx->designConfig->floor_color[2] << 8) | 0xFF;
+
+    int ceiling_color = (mlx->designConfig->ceiling_color[0] << 24) |
+                        (mlx->designConfig->ceiling_color[1] << 16) |
+                        (mlx->designConfig->ceiling_color[2] << 8) | 0xFF;
+
 	int		x;
 	x = bottom_pix;
     while (x < S_H) {
         if (!(ray >= minimap_x && ray < minimap_x + minimap_width &&
               x >= minimap_y && x < minimap_y + minimap_height)) 
         {
-           ft_pixel_put(mlx, ray, x, 0xB99470FF);  
+           ft_pixel_put(mlx, ray, x, floor_color);  
         }
         x++;
     }
@@ -35,30 +43,38 @@ void	draw_floor_ceiling(t_mlx *mlx, int ray, int top_pix, int bottom_pix)
         if (!(ray >= minimap_x && ray < minimap_x + minimap_width &&
               x >= minimap_y && x < minimap_y + minimap_height)) 
         {
-            ft_pixel_put(mlx, ray, x, 0x89CFF3FF);  
+            ft_pixel_put(mlx, ray, x, ceiling_color);  
         }
         x++;
     }
 }
 
 // get the color of the wall
-int	get_colour(t_mlx *mlx, int flag)	
+int	get_colour(t_mlx *mlx, int flag, int x, int y)	
 {
+    mlx_texture_t *texture;
+    int color;
+
 	mlx->ray->r_angle = angle_nor(mlx->ray->r_angle); // normalize the angle
 	if (flag == 0)
 	{
 		if (mlx->ray->r_angle > M_PI / 2 && mlx->ray->r_angle < 3 * (M_PI / 2))
-			return (0x7D7D7DFF); // west wall
+			texture = mlx->west_texture; // west wall
 		else
-			return (0xE0E0E0FF); // east wall
+			texture = mlx->east_texture; // east wall
 	}
 	else
 	{
 		if (mlx->ray->r_angle > 0 && mlx->ray->r_angle < M_PI)
-			return (0x4B4B4BFF); // south wall
+			texture = mlx->south_texture; // south wall
 		else
-			return (0x708090FF); // north wall
+			texture = mlx->north_texture; // north wall
 	}
+
+    uint8_t* pixel = texture->pixels + (y % texture->height) * texture->width * texture->bytes_per_pixel + (x % texture->width) * texture->bytes_per_pixel;
+    color = *(int*)pixel;
+	printf("color: %d\n", color);
+    return color;
 }
 
 //check wall collision
@@ -93,11 +109,16 @@ void	draw_wall(t_mlx *mlx, int ray, int top_pix, int bottom_pix)
 	int minimap_y = mlx->game->m_map_y;
 
 	//color = 0xF5F5F5FF;
-	colour = get_colour(mlx, mlx->ray->wall);
+	//colour = get_colour(mlx, mlx->ray->wall);
 	while (top_pix < bottom_pix) {
         if (!(ray >= minimap_x && ray < minimap_x + minimap_width &&
               top_pix >= minimap_y && top_pix < minimap_y + minimap_height)) 
         {
+			// Použití hodnot ze struktury t_ray
+            int texture_x = (int)(mlx->ray->vx) % mlx->north_texture->width;
+            int texture_y = (int)(mlx->ray->vy) % mlx->north_texture->height;
+			
+			colour = get_colour(mlx, mlx->ray->wall, texture_x, texture_y);
             ft_pixel_put(mlx, ray, top_pix++, colour);
         } else {
             top_pix++;

@@ -1,7 +1,7 @@
-NO assets/sprites/north_wall.xpm
-SO assets/sprites/south_wall.xpm
-EA assets/sprites/east_wall.xpm
-WE assets/sprites/west_wall.xpm
+NO textures/north.png
+SO textures/south.png
+EA textures/east.png
+WE textures/west.png
 
 C 53,41,34
 F 45,33,27

@@ -104,6 +104,10 @@ typedef struct s_mlx
     mlx_image_t  *img; 
     t_ray *ray;
     t_designConfig *designConfig;
+    mlx_texture_t *north_texture;
+    mlx_texture_t *south_texture;
+    mlx_texture_t *west_texture;
+    mlx_texture_t *east_texture;
 }t_mlx;
 
 
@@ -146,7 +150,7 @@ void	ft_release(mlx_key_data_t keydata, t_mlx *mlx);
 void	render_wall(t_mlx *mlx, int ray);
 void	draw_wall(t_mlx *mlx, int ray, int top_pix, int bottom_pix);
 int check_wall(float x, float y, t_mlx *mlx);
-int	get_colour(t_mlx *mlx, int flag);
+int	get_colour(t_mlx *mlx, int flag, int x, int y);
 void	draw_floor_ceiling(t_mlx *mlx, int ray, int top_pix, int bottom_pix);
 
 /*OTHER UTILS*/

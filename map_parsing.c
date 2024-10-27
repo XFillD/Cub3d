@@ -6,7 +6,7 @@
 /*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:03:47 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/20 15:22:08 by fhauba           ###   ########.fr       */
+/*   Updated: 2024/10/27 14:36:44 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,28 @@ int	map_read(t_game *game, t_mlx *mlx, char *file)
     parse_design_config(config, game->buffer, i);
 
     mlx->designConfig = config;
+
+    // Kontrolní výpisy pro cesty k texturám
+    printf("North Texture Path: %s\n", config->north_texture);
+    printf("South Texture Path: %s\n", config->south_texture);
+    printf("West Texture Path: %s\n", config->west_texture);
+    printf("East Texture Path: %s\n", config->east_texture);
+
+    // Načtení textur
+    mlx->north_texture = mlx_load_png("textures/north.png");
+    mlx->south_texture = mlx_load_png("textures/south.png");
+    mlx->west_texture = mlx_load_png("textures/west.png");
+    mlx->east_texture = mlx_load_png("textures/east.png");
+
+    if (mlx->north_texture == NULL) {
+        printf("Failed to load north texture: %s\n", config->north_texture);
+    } else {
+        printf("Successfully loaded north texture: %s\n", config->north_texture);
+        printf("Texture width: %d, height: %d\n", mlx->north_texture->width, mlx->north_texture->height);
+        printf("Texture bytes per pixel: %d\n", mlx->north_texture->bytes_per_pixel);
+        printf("Texture pixels: %p\n", mlx->north_texture->pixels);
+        printf("Texture pixel 0: %d\n", mlx->north_texture->pixels[0]);
+    }
 
     //TEST: print the config
     printf("North Texture: %s\n", config->north_texture);
