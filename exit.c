@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yana <yana@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:14:53 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/27 17:27:10 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:16:23 by yana             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,31 @@ void ft_exit_simple(t_game *game)
 	exit(0);
 }
 
+void clear_game(t_game *game)
+{
+	int x; 
+	x = 0;
+	if (game->map)
+		{
+			while (game->map[x])
+				free(game->map[x++]);
+			free(game->map);
+		}
+	x = 0;
+	if (game->buffer)
+		{
+			while (game->buffer[x])
+				free(game->buffer[x++]);
+			free(game->buffer);
+		}
+	free(game);
+}
+
 // exit the game, free memory
 void	ft_exit(t_mlx *mlx)
 {
-	int x = 0;
 	if (mlx->game)
-	{
-		if (mlx->game->map)
-		{
-			while (mlx->game->map[x])
-				free(mlx->game->map[x++]);
-			free(mlx->game->map);
-		}
-		x=0;
-		if (mlx->game->buffer)
-		{
-			while (mlx->game->buffer[x])
-				free(mlx->game->buffer[x++]);
-			free(mlx->game->buffer);
-		}
-		free(mlx->game);
-	}
+		clear_game(mlx->game);
 	if(mlx->player)
 		free(mlx->player);
 	if(mlx->ray)

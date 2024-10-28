@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yana <yana@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:56:52 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/20 13:19:06 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:32:17 by yana             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 #include "cub3d.h"
 
 //draw the direction line - helper function 
-void render_player_direction_mini(t_mlx *mlx)
+
+/*void render_player_direction_mini(t_mlx *mlx)
 {
     int start_x = mlx->player->p_x * MINIMAP_SCALE; 
     int start_y = mlx->player->p_y * MINIMAP_SCALE;
 
     int mini_w = (S_W * S_SQUARE) * MINIMAP_SCALE;
-     int mini_h = (S_H * S_SQUARE) * MINIMAP_SCALE;
+    int mini_h = (S_H * S_SQUARE) * MINIMAP_SCALE;
     
     int line_length = 15;  
     
@@ -41,7 +42,7 @@ void render_player_direction_mini(t_mlx *mlx)
 
         i++;  
     }
-}
+}*/
 
 //render square
 void render_square(t_mlx *mlx, int x, int y, int colour, int border_colour)
@@ -84,24 +85,22 @@ void render_player(t_mlx *mlx, int colour)
 }
 
 //visualise rays on the mini map 
-void draw_ray_mini(t_mlx *mlx, float start_x, float start_y, float end_x, float end_y, int color)
+void draw_ray_mini(t_mlx *mlx, float end_x, float end_y, int color)
 {
-   
-    float scale = MINIMAP_SCALE; 
-   
-    float dx = (end_x - start_x) * scale;
-    float dy = (end_y - start_y) * scale;
+    int steps; 
+    float x_increment;
+    float y_increment;
+    float x; 
+    float y;
 
-    int steps = fmax(fabs(dx), fabs(dy));
-    float x_increment = dx / steps;
-    float y_increment = dy / steps;
+    steps = fmax(fabs(((end_x - mlx->player->p_x) * MINIMAP_SCALE)), fabs(((end_y - mlx->player->p_y) * MINIMAP_SCALE)));
+    x_increment = ((end_x - mlx->player->p_x) * MINIMAP_SCALE) / steps;
+    y_increment = ((end_y - mlx->player->p_y) * MINIMAP_SCALE) / steps;
+    x = mlx->player->p_x * MINIMAP_SCALE; 
+    y = mlx->player->p_y * MINIMAP_SCALE; 
+    mlx->counter = 0;  
 
-    float x = start_x * scale; 
-    float y = start_y * scale; 
-
-    int i = 0;  
-
-    while (i <= steps)
+    while (mlx->counter <= steps)
     {
         if (x >= 0 && x < S_W && y >= 0 && y < S_H)
             mlx_put_pixel(mlx->img, (int)x, (int)y, color); 
@@ -109,7 +108,7 @@ void draw_ray_mini(t_mlx *mlx, float start_x, float start_y, float end_x, float 
         x += x_increment;
         y += y_increment;
         
-        i++;  
+        mlx->counter++;  
     }
 }
 

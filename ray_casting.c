@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yana <yana@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 15:57:40 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/19 17:31:42 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:21:54 by yana             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,34 +110,16 @@ float horizontal(t_mlx *mlx, float angle)
     return(sqrt(pow(hx - mlx->player->p_x, 2) + pow(hy - mlx->player->p_y, 2)));
 
 }
-
 //main ray calculation 
-void ray_caster(t_mlx *mlx)
+void ray_caster(t_mlx *mlx, double inter_h, double inter_v, int ray)
 {
-    int ray; 
-
-    double inter_h; 
-    double inter_v; 
-
-    ray = 0; 
-
     mlx->ray->r_angle = mlx->player->angle - (mlx->player->fov / 2); 
-
 	render_mini_map2(mlx);
-    
     while(ray < S_W)
     {
-        //printf("r_angle is [%f]\n",  mlx->ray->r_angle);
         mlx->ray->wall = 0; 
         inter_h = horizontal(mlx, angle_nor(mlx->ray->r_angle)); 
         inter_v = vertical(mlx, angle_nor(mlx->ray->r_angle));
-
-        //printf("Interh [%f], interv [%f]\n", inter_h, inter_v);
-
-        //draw_rays(mlx, mlx->ray->r_angle);
-		mlx->ray->interh = inter_h;
-		mlx->ray->interv = inter_v;
-
         if(inter_v <= inter_h)
             mlx->ray->distance = inter_v; 
         else 
@@ -145,18 +127,13 @@ void ray_caster(t_mlx *mlx)
             mlx->ray->distance = inter_h; 
             mlx->ray->wall = 1;
         }
-		
-		
-		if(mlx->ray->interv < mlx->ray->interh)
-            draw_ray_mini(mlx, mlx->player->p_x, mlx->player->p_y, mlx->ray->vx, mlx->ray->vy, 0x00FF00FF);
+		if(inter_v < inter_h)
+            draw_ray_mini(mlx, mlx->ray->vx, mlx->ray->vy, 0x00FF00FF);
         else 
-            draw_ray_mini(mlx, mlx->player->p_x, mlx->player->p_y, mlx->ray->hx, mlx->ray->hy, 0xFF0000FF);
-        
+            draw_ray_mini(mlx, mlx->ray->hx, mlx->ray->hy, 0xFF0000FF);
 		render_wall(mlx, ray); 
         ray++;
         mlx->ray->r_angle += (mlx->player->fov / S_W);
-
     }
     render_mini_map(mlx);
-
 }

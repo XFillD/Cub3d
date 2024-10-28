@@ -92,6 +92,7 @@ typedef struct s_mlx
 	t_game		*game;
 	t_player	*player;
 	void		*p_mlx;
+	int counter; 
 	mlx_image_t	*img;
 	t_ray		*ray;
 }				t_mlx;
@@ -99,14 +100,14 @@ typedef struct s_mlx
 void			game_loop(void *p_mlx);
 
 /*RAY CASTING*/
-void			ray_caster(t_mlx *mlx);
+void			ray_caster(t_mlx *mlx, double inter_h, double inter_v, int ray);
 float			horizontal(t_mlx *mlx, float angle);
 float			vertical(t_mlx *mlx, float angle);
 int				check_inter(float angle, float *inter, float *step, int hrzntl);
 int				angle_check(float angle, char c);
 
 /*MAP FUNCTION*/
-int				map_read(t_game *game, char *file);
+int				map_read(t_game *game, char *file, int x, int i);
 void			find_player(t_game *game);
 void			map_size(t_game *game);
 
@@ -118,8 +119,7 @@ void			render_player(t_mlx *mlx, int colour);
 void			render_square(t_mlx *mlx, int x, int y, int colour,
 					int border_colour);
 void			render_player_direction_mini(t_mlx *mlx);
-void			draw_ray_mini(t_mlx *mlx, float start_x, float start_y,
-					float end_x, float end_y, int color);
+void			draw_ray_mini(t_mlx *mlx, float end_x, float end_y, int color);
 
 /*EXIT AND CLEAN*/
 void			ft_exit(t_mlx *mlx);

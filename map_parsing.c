@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yana <yana@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:03:47 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/27 17:45:49 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:47:38 by yana             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,33 @@ int is_map_line(const char *line)
     return (0);
 }
 
-//parse the file - store data in the structs 
-int	map_read(t_game *game, char *file)
+int count_rows(char *file)
 {
+	char *line; 
 	int	fd;
-	int	i;
 	int	rows;
     rows = 0;
 
-	i = 0;
-    int x; 
-    x = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (FAIL);
-    char *line;
-
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		rows++; 
 		free(line);
 	}
-    close(fd);
+	close(fd);
+
+	return(rows);
+}
+
+//parse the file - store data in the structs 
+int	map_read(t_game *game, char *file, int x, int i)
+{
+	int	fd;
+	int	rows;
+
+	rows = count_rows(file);
 	fd = open(file, O_RDONLY);
 	game->buffer = (char **)malloc(((rows) + 1) * sizeof(char *));
     game->map = (char **)malloc(((rows) + 1) * sizeof(char *));
