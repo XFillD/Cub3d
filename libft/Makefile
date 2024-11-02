@@ -6,7 +6,7 @@
 #    By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/20 11:40:36 by yalechin          #+#    #+#              #
-#    Updated: 2024/10/13 14:16:31 by yalechin         ###   ########.fr        #
+#    Updated: 2024/10/26 17:12:27 by yalechin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ CFILES = ft_isalpha.c \
 		
 OFILES = $(CFILES:.c=.o)  
 
-CC = gcc
+CC = cc
 HDRS = libft.h
 CFLAGS = -Wall -Wextra -Werror
 
