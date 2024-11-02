@@ -6,7 +6,7 @@
 /*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:25:38 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/27 15:05:15 by fhauba           ###   ########.fr       */
+/*   Updated: 2024/11/02 12:56:50 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,27 @@ void	draw_floor_ceiling(t_mlx *mlx, int ray, int top_pix, int bottom_pix)
     }
 }
 
+int	get_rgba(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
+}
+
+int	get_color_of_texture(int x, int y, mlx_texture_t *image)
+{
+	int	index;
+	int	max;
+
+	max = image->height * image->width * image->bytes_per_pixel;
+	index = ((y * image->width) + x) * image->bytes_per_pixel;
+	if (index >= max)
+		return (0);
+	return (get_rgba(
+			image->pixels[index + 0],
+			image->pixels[index + 1],
+			image->pixels[index + 2],
+			image->pixels[index + 3]));
+}
+
 // get the color of the wall
 int	get_colour(t_mlx *mlx, int flag, int x, int y)	
 {
@@ -70,10 +91,7 @@ int	get_colour(t_mlx *mlx, int flag, int x, int y)
 		else
 			texture = mlx->north_texture; // north wall
 	}
-
-    uint8_t* pixel = texture->pixels + (y % texture->height) * texture->width * texture->bytes_per_pixel + (x % texture->width) * texture->bytes_per_pixel;
-    color = *(int*)pixel;
-	printf("color: %d\n", color);
+    color = get_color_of_texture(x, y, texture);
     return color;
 }
 
@@ -114,11 +132,8 @@ void	draw_wall(t_mlx *mlx, int ray, int top_pix, int bottom_pix)
         if (!(ray >= minimap_x && ray < minimap_x + minimap_width &&
               top_pix >= minimap_y && top_pix < minimap_y + minimap_height)) 
         {
-			// Použití hodnot ze struktury t_ray
-            int texture_x = (int)(mlx->ray->vx) % mlx->north_texture->width;
-            int texture_y = (int)(mlx->ray->vy) % mlx->north_texture->height;
-			
-			colour = get_colour(mlx, mlx->ray->wall, texture_x, texture_y);
+		
+			colour = get_colour(mlx, mlx->ray->wall, top_pix, bottom_pix);
             ft_pixel_put(mlx, ray, top_pix++, colour);
         } else {
             top_pix++;
