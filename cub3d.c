@@ -6,7 +6,7 @@
 /*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:56:48 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/20 15:17:31 by fhauba           ###   ########.fr       */
+/*   Updated: 2024/11/02 15:09:38 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void game_start(t_game *game)
 
     mlx.player = ft_calloc(1, sizeof(t_player));
     mlx.p_mlx = mlx_init(S_W, S_H, "CUB3D", 0);
-	mlx.ray = ft_calloc(1, sizeof(t_ray));
+	mlx.ray = malloc(sizeof(t_ray) * S_W);
 
     player_init(&mlx);
 

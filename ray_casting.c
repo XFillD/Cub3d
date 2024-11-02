@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 15:57:40 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/19 17:31:42 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/02 14:48:24 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,27 @@ float horizontal(t_mlx *mlx, float angle)
 
 }
 
+void setFlag(double inter_h, double inter_v, t_mlx *mlx)
+{
+    if(mlx->ray->interh < mlx->ray->interv)
+    {
+        mlx->ray->wall_hit_x = mlx->ray->hx;
+        mlx->ray->wall_hit_y = mlx->ray->hy;
+    }
+    else 
+    {
+        mlx->ray->wall_hit_x = mlx->ray->vx;
+        mlx->ray->wall_hit_y = mlx->ray->vy;
+    }
+
+    if(inter_v <= inter_h)
+       mlx->was_hit_vertical = 1; 
+    else 
+    {
+        mlx->was_hit_vertical = 0;
+    }
+}
+
 //main ray calculation 
 void ray_caster(t_mlx *mlx)
 {
@@ -146,7 +167,7 @@ void ray_caster(t_mlx *mlx)
             mlx->ray->wall = 1;
         }
 		
-		
+		setFlag(inter_h, inter_v, mlx);
 		if(mlx->ray->interv < mlx->ray->interh)
             draw_ray_mini(mlx, mlx->player->p_x, mlx->player->p_y, mlx->ray->vx, mlx->ray->vy, 0x00FF00FF);
         else 
