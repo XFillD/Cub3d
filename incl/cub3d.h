@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/02 12:32:52 by yalechin          #+#    #+#             */
+/*   Updated: 2024/11/02 13:23:41 by yalechin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "MLX42/include/MLX42/MLX42.h"
-# include "libft/get_next_line.h"
-# include "libft/libft.h"
+# include "../MLX42/include/MLX42/MLX42.h"
+# include "../libft/get_next_line.h"
+# include "../libft/libft.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <fcntl.h>
@@ -23,13 +35,8 @@
 # define ROTATION_SPEED 0.05
 # define FOV 60
 # define MINIMAP_SCALE 0.5
-// # define S_SQUARE_M 15
-# define S_SQUARE_M (S_SQUARE * MINIMAP_SCALE)
-# define P_SIZE (S_SQUARE_M / 2)
 
 # define M_PI 3.14159265358979323846
-# define M_PI2 (M_PI / 2)
-# define M_PI3 (3 * M_PI / 2)
 
 # define P_BOX "imgs/box.xpm"
 # define P_CAT "imgs/cat.xpm"
@@ -37,6 +44,11 @@
 # define P_SPACE "imgs/space.xpm"
 # define P_HEAD "imgs/head.xpm"
 # define P_DOOR "imgs/door.xpm"
+
+# define FLOOR_M_COLOUR 0x000000
+# define FLOOR_M_B_COLOUR 0xFF0000FF
+# define WALL_M_COLOUR 0xFFFFFF
+# define WALL_M_B_COLOUR 0xFF0000FF
 
 # define FAIL 1
 # define SUCCESS 0
@@ -69,6 +81,8 @@ typedef struct s_game
 	int			m_map_x;
 	int			m_map_y;
 
+	int			map_flag;
+
 }				t_game;
 
 typedef struct s_ray
@@ -92,7 +106,7 @@ typedef struct s_mlx
 	t_game		*game;
 	t_player	*player;
 	void		*p_mlx;
-	int counter; 
+	int			counter;
 	mlx_image_t	*img;
 	t_ray		*ray;
 }				t_mlx;
@@ -115,14 +129,18 @@ void			map_size(t_game *game);
 void			render_mini_map2(t_mlx *mlx);
 void			render_mini_map(t_mlx *mlx);
 void			mini_map_size(t_game *game);
-void			render_player(t_mlx *mlx, int colour);
-void			render_square(t_mlx *mlx, int x, int y, int colour,
-					int border_colour);
+void			render_player(t_mlx *mlx, int colour, int start_x, int start_y);
+void			render_square(t_mlx *mlx, int x, int y);
+void			render_square_floor(t_mlx *mlx, int x, int y);
 void			render_player_direction_mini(t_mlx *mlx);
 void			draw_ray_mini(t_mlx *mlx, float end_x, float end_y, int color);
 
 /*EXIT AND CLEAN*/
 void			ft_exit(t_mlx *mlx);
+void			check_and_exit(int condition, t_game *game,
+					const char *message);
+void			ft_exit_simple(t_game *game);
+void			close_game_callback(void *param);
 
 /*PLAYER MOVEMENT*/
 void			hook(t_mlx *mlx, double move_v, double move_h);
@@ -146,10 +164,7 @@ void			error(char *error_text);
 
 /*CHECKS*/
 int				map_check(t_game *game);
-
 void			check_argv(char *argv);
 void			check_player(t_game *game);
-
-void ft_exit_simple(t_game *game);
 
 #endif

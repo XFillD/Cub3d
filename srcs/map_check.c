@@ -6,47 +6,11 @@
 /*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:46:46 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/27 17:19:48 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/02 12:53:50 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
-void	check_argv(char *argv)
-{
-	int	x;
-
-	x = ft_strlen(argv) - 4;
-	if ((ft_strncmp(argv + x, ".cub", 4)) != 0)
-	{
-		error("Invalid map name!");
-		exit(1);
-	}
-}
-
-void	check_player(t_game *game)
-{
-	int	row;
-	int	col;
-	int	player;
-
-	row = 0;
-	col = 0;
-	player = 0;
-	while (row < game->map_h)
-	{
-		col = 0;
-		while (game->map[row][col])
-		{
-			if (game->map[row][col] == 'N')
-				player = 1;
-			col++;
-		}
-		row++;
-	}
-	if (player == 0)
-		ft_exit_simple(game);
-}
+#include "../incl/cub3d.h"
 
 int	check_border(char *line)
 {
