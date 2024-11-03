@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 15:57:40 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/03 15:12:16 by fhauba           ###   ########.fr       */
+/*   Updated: 2024/11/03 16:36:11 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,9 +165,9 @@ void	ray_caster(t_mlx *mlx, double inter_h, double inter_v, int ray)
 		}
 		setFlag(inter_h, inter_v, mlx);
 		if (inter_v < inter_h)
-			draw_ray_mini(mlx, mlx->ray->vx, mlx->ray->vy, 0x00FF00FF);
+			draw_ray_mini(mlx, mlx->ray->vx, mlx->ray->vy, 0xFFFFC0CB);
 		else
-			draw_ray_mini(mlx, mlx->ray->hx, mlx->ray->hy, 0xFF0000FF);
+			draw_ray_mini(mlx, mlx->ray->hx, mlx->ray->hy, 0xFFFFEFD5);
 		render_wall(mlx, ray);
 		ray++;
 		mlx->ray->r_angle += (mlx->player->fov / S_W);
