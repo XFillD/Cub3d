@@ -6,7 +6,7 @@
 /*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:03:47 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/03 12:39:29 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/03 13:26:33 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ printf("ceiling color: %d, %d, %d\n", game->designConfig->ceiling_color[0], game
     printf("East Texture Path: %s\n", config->east_texture);
 
     // Načtení textur
-    game->north_texture = mlx_load_png("textures/north.png");
+    game->north_texture = mlx_load_png("cat_textures/NORTH.png");
     game->south_texture = mlx_load_png("cat_textures/SOUTH.png");
     game->west_texture = mlx_load_png("cat_textures/WEST.png");
     game->east_texture = mlx_load_png("cat_textures/EAST.png");

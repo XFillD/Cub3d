@@ -6,7 +6,7 @@
 /*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:25:38 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/03 12:44:36 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/03 13:17:16 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,22 +167,24 @@ void	get_texture_y(t_mlx *mlx, mlx_texture_t *image, int top_pix, int bottom_pix
 				/ wall_height) * image->height;
 }
 
-// draw the wall
-void	draw_wall(t_mlx *mlx, int ray, int top_pix, int bottom_pix)	
+void draw_wall(t_mlx *mlx, int ray, int top_pix, int bottom_pix)
 {
-	int minimap_width = mlx->game->m_map_w;
-	int minimap_height = mlx->game->m_map_h;
+    int minimap_width = mlx->game->m_map_w;
+    int minimap_height = mlx->game->m_map_h;
+    int minimap_x =  mlx->game->m_map_x;
+    int minimap_y = mlx->game->m_map_y;
+    
+    // Calculate y_textures increment to step through texture rows
+    double y_increment = (double)mlx->game->image->height / (bottom_pix - top_pix);
+    double y_textures = 0;
 
-	int minimap_x =  mlx->game->m_map_x;
-	int minimap_y = mlx->game->m_map_y;
-
-	//color = 0xF5F5F5FF;
-	//colour = get_colour(mlx, mlx->ray->wall);
-	while (top_pix < bottom_pix) {
+    while (top_pix < bottom_pix) {
         if (!(ray >= minimap_x && ray < minimap_x + minimap_width &&
               top_pix >= minimap_y && top_pix < minimap_y + minimap_height)) 
         {
-            ft_pixel_put(mlx, ray, top_pix++, get_color_of_texture(mlx->game->x_texures, mlx->game->y_textures, mlx->game->image));
+            int color = get_color_of_texture(mlx->game->x_texures, (int)y_textures, mlx->game->image);
+            ft_pixel_put(mlx, ray, top_pix++, color);
+            y_textures += y_increment; // Move to the next texture row
         } else {
             top_pix++;
         }
