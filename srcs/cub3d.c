@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:56:48 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/02 13:05:38 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/03 14:09:37 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	game_start(t_game *game)
 	mlx.game = game;
 	mlx.player = ft_calloc(1, sizeof(t_player));
 	mlx.p_mlx = mlx_init(S_W, S_H, "CUB3D", 0);
-	mlx.ray = ft_calloc(1, sizeof(t_ray));
+	mlx.ray = malloc(sizeof(t_ray) * S_W);
 	player_init(&mlx);
 	mlx_loop_hook(mlx.p_mlx, &game_loop, &mlx);
 	mlx_key_hook(mlx.p_mlx, &mlx_key, &mlx);
@@ -56,6 +56,11 @@ t_game	*init_game(void)
 	t_game	*game;
 
 	game = ft_calloc(1, sizeof(t_game));
+	game->north_texture = NULL;
+    game->south_texture= NULL;
+    game->west_texture= NULL; 
+    game->east_texture= NULL;
+  	game->image= NULL;
 	return (game);
 }
 

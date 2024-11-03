@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 12:32:52 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/02 13:23:41 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/03 16:08:03 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,6 @@
 
 # define M_PI 3.14159265358979323846
 
-# define P_BOX "imgs/box.xpm"
-# define P_CAT "imgs/cat.xpm"
-# define P_WALL "imgs/wall.xpm"
-# define P_SPACE "imgs/space.xpm"
-# define P_HEAD "imgs/head.xpm"
-# define P_DOOR "imgs/door.xpm"
-
 # define FLOOR_M_COLOUR 0x000000
 # define FLOOR_M_B_COLOUR 0xFF0000FF
 # define WALL_M_COLOUR 0xFFFFFF
@@ -66,24 +59,54 @@ typedef struct s_player
 	float		fov;
 }				t_player;
 
+typedef struct s_design_config
+{
+	char		*north_texture;
+	char		*south_texture;
+	char		*west_texture;
+	char		*east_texture;
+	int			floor_color[3];
+	int			ceiling_color[3];
+}				t_design_config;
+
 typedef struct s_game
 {
 	// char **map_test;
-	char		**map;
-	char		**buffer;
-	int			player_x;
-	int			player_y;
-	int			map_h;
-	int			map_w;
+	char			**map;
+	char			**buffer;
+	int				player_x;
+	int				player_y;
+	int				map_h;
+	int				map_w;
 
-	int			m_map_w;
-	int			m_map_h;
-	int			m_map_x;
-	int			m_map_y;
+	int				m_map_w;
+	int				m_map_h;
+	int				m_map_x;
+	int				m_map_y;
 
-	int			map_flag;
+	t_design_config	*design_config;
+	mlx_texture_t	*north_texture;
+	mlx_texture_t	*south_texture;
+	mlx_texture_t	*west_texture;
+	mlx_texture_t	*east_texture;
+	mlx_texture_t	*image;
 
+	float			x_textures;
+	float			y_textures;
+	int				was_hit_vertical;
+	int				map_flag;
 }				t_game;
+
+typedef enum e_enums
+{
+	_NORTH,
+	_WEST,
+	_SOUTH,
+	_EAST,
+	_COLOR_F,
+	_COLOR_C,
+	_NONE
+}				t_enums;
 
 typedef struct s_ray
 {
@@ -99,6 +122,10 @@ typedef struct s_ray
 	float		interv;
 	float		interh;
 
+	float		wall_hit_x;
+	float		wall_hit_y;
+
+	t_enums		direction;
 }				t_ray;
 
 typedef struct s_mlx
@@ -153,9 +180,10 @@ void			ft_release(mlx_key_data_t keydata, t_mlx *mlx);
 void			render_wall(t_mlx *mlx, int ray);
 void			draw_wall(t_mlx *mlx, int ray, int top_pix, int bottom_pix);
 int				check_wall(float x, float y, t_mlx *mlx);
-int				get_colour(t_mlx *mlx, int flag);
-void			draw_floor_ceiling(t_mlx *mlx, int ray, int top_pix,
-					int bottom_pix);
+void			detect_texture(t_mlx *mlx);
+void			draw_floor_ceiling(t_mlx *mlx, int ray, int top_pix, int bottom_pix);
+void			get_texture_x(t_mlx *mlx, mlx_texture_t *image);
+void			get_texture_y(t_mlx *mlx, mlx_texture_t *image, int top_pix, int bottom_pix, int wall_height);
 
 /*OTHER UTILS*/
 void			ft_pixel_put(t_mlx *mlx, int x, int y, int color);
