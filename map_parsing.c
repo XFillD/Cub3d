@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:03:47 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/03 13:26:33 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/03 13:49:22 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@ int is_map_line(const char *line)
     if(line[x] == ' ' || line[x] == '1' || line[x] == '0')
         return 1;
     return (0);
+}
+
+void remove_newline(char *str)
+{
+    size_t len = strlen(str);
+    if (len > 0 && str[len - 1] == '\n')
+    {
+        str[len - 1] = '\0';
+    }
 }
 
 //parse design config to the struct
@@ -85,44 +94,17 @@ int	map_read(t_game *game, char *file)
     parse_design_config(config, game->buffer, i);
 
     game->designConfig = config;
-
-printf("floor color: %d, %d, %d\n", game->designConfig->floor_color[0], game->designConfig->floor_color[1], game->designConfig->floor_color[2]);
-printf("ceiling color: %d, %d, %d\n", game->designConfig->ceiling_color[0], game->designConfig->ceiling_color[1], game->designConfig->ceiling_color[2]);
-    // Kontrolní výpisy pro cesty k texturám
-    printf("North Texture Path: %s\n", config->north_texture);
-    printf("South Texture Path: %s\n", config->south_texture);
-    printf("West Texture Path: %s\n", config->west_texture);
-    printf("East Texture Path: %s\n", config->east_texture);
+    
+    remove_newline(game->designConfig->east_texture);
+    remove_newline(game->designConfig->north_texture);
+    remove_newline(game->designConfig->south_texture);
+    remove_newline(game->designConfig->west_texture);
 
     // Načtení textur
-    game->north_texture = mlx_load_png("cat_textures/NORTH.png");
-    game->south_texture = mlx_load_png("cat_textures/SOUTH.png");
-    game->west_texture = mlx_load_png("cat_textures/WEST.png");
-    game->east_texture = mlx_load_png("cat_textures/EAST.png");
-
-    if (game->north_texture == NULL) {
-        printf("Failed to load north texture: %s\n", config->north_texture);
-    } else {
-        printf("Texture width: %d, height: %d\n", game->north_texture->width, game->north_texture->height);
-        printf("Texture bytes per pixel: %d\n", game->north_texture->bytes_per_pixel);
-        printf("Texture pixels: %p\n", game->north_texture->pixels);
-        printf("Texture pixel 0: %d\n", game->north_texture->pixels[0]);
-		
-        printf("Texture width: %d, height: %d\n", game->south_texture->width, game->north_texture->height);
-        printf("Texture bytes per pixel: %d\n", game->south_texture->bytes_per_pixel);
-        printf("Texture pixels: %p\n", game->south_texture->pixels);
-        printf("Texture pixel 0: %d\n", game->south_texture->pixels[0]);
-
-		printf("Texture width: %d, height: %d\n", game->east_texture->width, game->north_texture->height);
-        printf("Texture bytes per pixel: %d\n", game->east_texture->bytes_per_pixel);
-        printf("Texture pixels: %p\n", game->east_texture->pixels);
-        printf("Texture pixel 0: %d\n", game->east_texture->pixels[0]);
-
-		printf("Texture width: %d, height: %d\n", game->west_texture->width, game->north_texture->height);
-        printf("Texture bytes per pixel: %d\n", game->west_texture->bytes_per_pixel);
-        printf("Texture pixels: %p\n", game->west_texture->pixels);
-        printf("Texture pixel 0: %d\n", game->west_texture->pixels[0]);
-    }
+    game->north_texture = mlx_load_png(game->designConfig->north_texture);
+    game->south_texture = mlx_load_png(game->designConfig->south_texture);
+    game->west_texture = mlx_load_png(game->designConfig->west_texture);
+    game->east_texture = mlx_load_png(game->designConfig->east_texture);
 
 	return (0);
 }

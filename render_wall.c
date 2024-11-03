@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_wall.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:25:38 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/03 13:17:16 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/03 13:37:51 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,43 +77,22 @@ int	get_color_of_texture(int x, int y, mlx_texture_t *image)
 // get the color of the wall
 void	detect_texture(t_mlx *mlx)	
 {
-        //printf("Texture width: %d, height: %d\n", mlx->game->north_texture->width, mlx->game->north_texture->height);
-        //printf("Texture bytes per pixel: %d\n", mlx->north_texture->bytes_per_pixel);
-       // printf("Texture pixels: %p\n", mlx->north_texture->pixels);
-       // printf("Texture pixel 0: %d\n", mlx->north_texture->pixels[0]);
 	mlx->ray->r_angle = angle_nor(mlx->ray->r_angle); // normalize the angle
-	/*if (flag == 0)
-	{
-		if (mlx->ray->r_angle > M_PI / 2 && mlx->ray->r_angle < 3 * (M_PI / 2))
-			mlx->game->image = mlx->game->west_texture; // west wall
-		else
-			mlx->game->image = mlx->game->east_texture; // east wall
-	}
-	else
-	{
-		if (mlx->ray->r_angle > 0 && mlx->ray->r_angle < M_PI)
-			mlx->game->image = mlx->game->south_texture; // south wall
-		else
-			mlx->game->image = mlx->game->north_texture; // north wall
-	}*/
+
 	if(mlx->ray->direction == _NORTH)
 	{
-		//printf("NORTH\n");
 		mlx->game->image = mlx->game->north_texture;
 	}
 	else if(mlx->ray->direction == _SOUTH)
 	{
-		//printf("SOUTH\n");
 		mlx->game->image = mlx->game->south_texture;
 	}
 	else if(mlx->ray->direction == _WEST)
 	{
-		//printf("WEST\n");
 		mlx->game->image = mlx->game->west_texture;
 	}
 	else if(mlx->ray->direction == _EAST)
 	{
-		//printf("EAST\n");
 		mlx->game->image = mlx->game->east_texture;
 	}
 }
@@ -140,20 +119,16 @@ int check_wall(float x, float y, t_mlx *mlx)
 
 void	get_texture_x(t_mlx *mlx, mlx_texture_t *image)
 {
-	//printf("mlx->was_hit_vertical %d\n", mlx->was_hit_vertical);
-	//printf("mlx->ray[index].wall_hit_y %f\n", mlx->ray[index].wall_hit_y);
-	//printf("mlx->ray[index].wall_hit_x %f\n", mlx->ray[index].wall_hit_x);
-	//printf("index %d\n", index);
 	if (mlx->game->was_hit_vertical == 1)
 	{
-		mlx->game->x_texures = fmod(mlx->ray->wall_hit_y, S_SQUARE)
+		mlx->game->x_textures = fmod(mlx->ray->wall_hit_y, S_SQUARE)
 			* (image->width / S_SQUARE);
 	}
 	else
 	{
 		if (mlx->ray->wall_hit_x >= 0
 			&& mlx->ray->wall_hit_x < S_W)
-			mlx->game->x_texures = fmod(mlx->ray->wall_hit_x, S_SQUARE)
+			mlx->game->x_textures = fmod(mlx->ray->wall_hit_x, S_SQUARE)
 				* (image->width / S_SQUARE);
 	}
 }
@@ -182,7 +157,7 @@ void draw_wall(t_mlx *mlx, int ray, int top_pix, int bottom_pix)
         if (!(ray >= minimap_x && ray < minimap_x + minimap_width &&
               top_pix >= minimap_y && top_pix < minimap_y + minimap_height)) 
         {
-            int color = get_color_of_texture(mlx->game->x_texures, (int)y_textures, mlx->game->image);
+            int color = get_color_of_texture(mlx->game->x_textures, (int)y_textures, mlx->game->image);
             ft_pixel_put(mlx, ray, top_pix++, color);
             y_textures += y_increment; // Move to the next texture row
         } else {

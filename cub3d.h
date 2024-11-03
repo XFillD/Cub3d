@@ -86,7 +86,7 @@ typedef struct s_game
     mlx_texture_t *west_texture;
     mlx_texture_t *east_texture;
     mlx_texture_t *image;
-    float			x_texures;
+    float			x_textures;
 	float			y_textures;
     int        was_hit_vertical;
 

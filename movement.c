@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:13:14 by yalechin          #+#    #+#             */
-/*   Updated: 2024/10/19 16:21:13 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/03 13:30:31 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 //release key - flag reset
 void	ft_release(mlx_key_data_t keydata, t_mlx *mlx)	
 {
-
-    //ft_printf("Key released!\n");
 	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_RELEASE))
 		mlx->player->m_h = 0;
 	else if (keydata.key == MLX_KEY_A && (keydata.action == MLX_RELEASE))

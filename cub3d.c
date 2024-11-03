@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:56:48 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/03 11:36:10 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/03 13:33:00 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void game_loop(void *p_mlx)
 	mlx_delete_image(mlx->p_mlx, mlx->img); 
 	mlx->img = mlx_new_image(mlx->p_mlx, S_W, S_H);
 	
-	 
-
 	hook(mlx, 0, 0); 
 	ray_caster(mlx); 
 	mlx_image_to_window(mlx->p_mlx, mlx->img, 0, 0); 
@@ -50,10 +48,6 @@ void game_start(t_game *game)
 	mlx.ray = malloc(sizeof(t_ray) * S_W);
 
     player_init(&mlx);
-
-	/*↓TESTING↓*/
-    //printf("player_x [%d], player_y[%d], P_x[%d], P_y [%d], fov is [%f]\n", mlx.game->player_x, mlx.game->player_y, mlx.player->p_x, mlx.player->p_y, mlx.player->fov);
-	/*↑TESTING↑*/
 
     mlx_loop_hook(mlx.p_mlx, &game_loop, &mlx);
     mlx_key_hook(mlx.p_mlx, &mlx_key, &mlx);
@@ -87,16 +81,6 @@ int main(int argc, char **argv)
 	game = init_game();
 
 	map_read(game, argv[1]); 
-
-	/*↓TESTING↓*/
-	int x = 0; 
-	while(game->map[x])
-	{
-		printf("%s",game->map[x]);
-		x++; 
-	}
-	printf("\n");
-	/*↑TESTING↑*/
 
 	map_size(game);
 	mini_map_size(game);
