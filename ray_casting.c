@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 15:57:40 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/02 14:48:24 by fhauba           ###   ########.fr       */
+/*   Updated: 2024/11/03 12:20:58 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,22 +113,25 @@ float horizontal(t_mlx *mlx, float angle)
 
 void setFlag(double inter_h, double inter_v, t_mlx *mlx)
 {
-    if(mlx->ray->interh < mlx->ray->interv)
+    //printf("INTERV [%f] INTERH [%f]\n", inter_v, inter_h);
+    if(inter_v < inter_h)
     {
-        mlx->ray->wall_hit_x = mlx->ray->hx;
-        mlx->ray->wall_hit_y = mlx->ray->hy;
+        mlx->game->was_hit_vertical = 1; 
+        //printf("[%f]\n", cos(mlx->ray->r_angle));
+        if (cos(mlx->ray->r_angle) > 0)
+			mlx->ray->direction = _EAST;
+		else
+			mlx->ray->direction = _WEST;
+        
     }
     else 
     {
-        mlx->ray->wall_hit_x = mlx->ray->vx;
-        mlx->ray->wall_hit_y = mlx->ray->vy;
-    }
-
-    if(inter_v <= inter_h)
-       mlx->was_hit_vertical = 1; 
-    else 
-    {
-        mlx->was_hit_vertical = 0;
+        mlx->game->was_hit_vertical = 0;
+        //printf("[%f]\n", sin(mlx->ray->r_angle));
+        if (sin(mlx->ray->r_angle) > 0)
+			mlx->ray->direction = _SOUTH;
+		else
+			mlx->ray->direction = _NORTH;
     }
 }
 
@@ -152,6 +155,17 @@ void ray_caster(t_mlx *mlx)
         mlx->ray->wall = 0; 
         inter_h = horizontal(mlx, angle_nor(mlx->ray->r_angle)); 
         inter_v = vertical(mlx, angle_nor(mlx->ray->r_angle));
+
+        if(mlx->ray->interh < mlx->ray->interv)
+        {
+            mlx->ray->wall_hit_x = mlx->ray->hx;
+            mlx->ray->wall_hit_y = mlx->ray->hy;
+        }
+        else 
+        {
+            mlx->ray->wall_hit_x = mlx->ray->vx;
+            mlx->ray->wall_hit_y = mlx->ray->vy;
+        }
 
         //printf("Interh [%f], interv [%f]\n", inter_h, inter_v);
 

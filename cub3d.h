@@ -29,6 +29,8 @@
 
 
 
+
+
 #define M_PI 3.14159265358979323846 
 #define M_PI2 (M_PI/2)
 #define M_PI3 (3*M_PI/2)
@@ -53,6 +55,16 @@ typedef struct s_player
     float fov;
 } t_player; 
 
+typedef struct s_designConfig {
+    char *north_texture;
+    char *south_texture;
+    char *west_texture;
+    char *east_texture;
+    int floor_color[3];
+    int ceiling_color[3];
+} t_designConfig;
+
+
 typedef struct s_game
 {
     //char **map_test; 
@@ -68,7 +80,29 @@ typedef struct s_game
     int m_map_x; 
     int m_map_y;
 
+    t_designConfig *designConfig;
+    mlx_texture_t *north_texture;
+    mlx_texture_t *south_texture;
+    mlx_texture_t *west_texture;
+    mlx_texture_t *east_texture;
+    mlx_texture_t *image;
+    float			x_texures;
+	float			y_textures;
+    int        was_hit_vertical;
+
 } t_game; 
+
+
+typedef enum e_enums
+{
+	_NORTH,
+	_WEST,
+	_SOUTH,
+	_EAST,
+	_COLOR_F,
+	_COLOR_C,
+	_NONE
+}	t_enums;
 
 typedef struct s_ray
 {
@@ -87,16 +121,10 @@ typedef struct s_ray
     float wall_hit_x;
     float wall_hit_y;
 
+    t_enums	direction;
+
 } t_ray;
 
-typedef struct s_designConfig {
-    char *north_texture;
-    char *south_texture;
-    char *west_texture;
-    char *east_texture;
-    int floor_color[3];
-    int ceiling_color[3];
-} t_designConfig;
 
 typedef struct s_mlx
 {
@@ -105,15 +133,6 @@ typedef struct s_mlx
     void	*p_mlx;
     mlx_image_t  *img; 
     t_ray *ray;
-    t_designConfig *designConfig;
-    mlx_texture_t *north_texture;
-    mlx_texture_t *south_texture;
-    mlx_texture_t *west_texture;
-    mlx_texture_t *east_texture;
-    mlx_texture_t *image;
-    float			x_texures;
-	float			y_textures;
-    int        was_hit_vertical;
 }t_mlx;
 
 
@@ -127,7 +146,7 @@ int	check_inter(float angle, float *inter, float *step, int hrzntl);
 int	angle_check(float angle, char c);
 
 /*MAP FUNCTION*/
-int	map_read(t_game *game, t_mlx *mlx, char *file);
+int	map_read(t_game *game, char *file);
 void find_player(t_game* game);
 void map_size(t_game *game);
 void parse_design_config(t_designConfig *config, char **buffer, int rows);
@@ -156,9 +175,9 @@ void	ft_release(mlx_key_data_t keydata, t_mlx *mlx);
 void	render_wall(t_mlx *mlx, int ray);
 void	draw_wall(t_mlx *mlx, int ray, int top_pix, int bottom_pix);
 int check_wall(float x, float y, t_mlx *mlx);
-void	detect_texture(t_mlx *mlx, int flag);
+void	detect_texture(t_mlx *mlx);
 void	draw_floor_ceiling(t_mlx *mlx, int ray, int top_pix, int bottom_pix);
-void get_texture_x(t_mlx *mlx, int index, mlx_texture_t *image);
+void get_texture_x(t_mlx *mlx, mlx_texture_t *image);
 void get_texture_y(t_mlx *mlx, mlx_texture_t *image, int top_pix, int bottom_pix, int wall_height);
 
 /*OTHER UTILS*/

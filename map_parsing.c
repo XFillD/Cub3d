@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:03:47 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/02 15:51:40 by fhauba           ###   ########.fr       */
+/*   Updated: 2024/11/03 12:39:29 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void parse_design_config(t_designConfig *config, char **buffer, int rows) {
 }
 
 //parse the file - store data in the structs 
-int	map_read(t_game *game, t_mlx *mlx, char *file)
+int	map_read(t_game *game, char *file)
 {
 	int	fd;
 	int	i;
@@ -84,10 +84,10 @@ int	map_read(t_game *game, t_mlx *mlx, char *file)
     t_designConfig *config = (t_designConfig *)malloc(sizeof(t_designConfig));
     parse_design_config(config, game->buffer, i);
 
-    mlx->designConfig = config;
+    game->designConfig = config;
 
-printf("floor color: %d, %d, %d\n", mlx->designConfig->floor_color[0], mlx->designConfig->floor_color[1], mlx->designConfig->floor_color[2]);
-printf("ceiling color: %d, %d, %d\n", mlx->designConfig->ceiling_color[0], mlx->designConfig->ceiling_color[1], mlx->designConfig->ceiling_color[2]);
+printf("floor color: %d, %d, %d\n", game->designConfig->floor_color[0], game->designConfig->floor_color[1], game->designConfig->floor_color[2]);
+printf("ceiling color: %d, %d, %d\n", game->designConfig->ceiling_color[0], game->designConfig->ceiling_color[1], game->designConfig->ceiling_color[2]);
     // Kontrolní výpisy pro cesty k texturám
     printf("North Texture Path: %s\n", config->north_texture);
     printf("South Texture Path: %s\n", config->south_texture);
@@ -95,33 +95,33 @@ printf("ceiling color: %d, %d, %d\n", mlx->designConfig->ceiling_color[0], mlx->
     printf("East Texture Path: %s\n", config->east_texture);
 
     // Načtení textur
-    mlx->north_texture = mlx_load_png("textures/north.png");
-    mlx->south_texture = mlx_load_png("textures/south.png");
-    mlx->west_texture = mlx_load_png("textures/west.png");
-    mlx->east_texture = mlx_load_png("textures/east.png");
+    game->north_texture = mlx_load_png("textures/north.png");
+    game->south_texture = mlx_load_png("cat_textures/SOUTH.png");
+    game->west_texture = mlx_load_png("cat_textures/WEST.png");
+    game->east_texture = mlx_load_png("cat_textures/EAST.png");
 
-    if (mlx->north_texture == NULL) {
+    if (game->north_texture == NULL) {
         printf("Failed to load north texture: %s\n", config->north_texture);
     } else {
-        printf("Texture width: %d, height: %d\n", mlx->north_texture->width, mlx->north_texture->height);
-        printf("Texture bytes per pixel: %d\n", mlx->north_texture->bytes_per_pixel);
-        printf("Texture pixels: %p\n", mlx->north_texture->pixels);
-        printf("Texture pixel 0: %d\n", mlx->north_texture->pixels[0]);
+        printf("Texture width: %d, height: %d\n", game->north_texture->width, game->north_texture->height);
+        printf("Texture bytes per pixel: %d\n", game->north_texture->bytes_per_pixel);
+        printf("Texture pixels: %p\n", game->north_texture->pixels);
+        printf("Texture pixel 0: %d\n", game->north_texture->pixels[0]);
 		
-        printf("Texture width: %d, height: %d\n", mlx->south_texture->width, mlx->north_texture->height);
-        printf("Texture bytes per pixel: %d\n", mlx->south_texture->bytes_per_pixel);
-        printf("Texture pixels: %p\n", mlx->south_texture->pixels);
-        printf("Texture pixel 0: %d\n", mlx->south_texture->pixels[0]);
+        printf("Texture width: %d, height: %d\n", game->south_texture->width, game->north_texture->height);
+        printf("Texture bytes per pixel: %d\n", game->south_texture->bytes_per_pixel);
+        printf("Texture pixels: %p\n", game->south_texture->pixels);
+        printf("Texture pixel 0: %d\n", game->south_texture->pixels[0]);
 
-		printf("Texture width: %d, height: %d\n", mlx->east_texture->width, mlx->north_texture->height);
-        printf("Texture bytes per pixel: %d\n", mlx->east_texture->bytes_per_pixel);
-        printf("Texture pixels: %p\n", mlx->east_texture->pixels);
-        printf("Texture pixel 0: %d\n", mlx->east_texture->pixels[0]);
+		printf("Texture width: %d, height: %d\n", game->east_texture->width, game->north_texture->height);
+        printf("Texture bytes per pixel: %d\n", game->east_texture->bytes_per_pixel);
+        printf("Texture pixels: %p\n", game->east_texture->pixels);
+        printf("Texture pixel 0: %d\n", game->east_texture->pixels[0]);
 
-		printf("Texture width: %d, height: %d\n", mlx->west_texture->width, mlx->north_texture->height);
-        printf("Texture bytes per pixel: %d\n", mlx->west_texture->bytes_per_pixel);
-        printf("Texture pixels: %p\n", mlx->west_texture->pixels);
-        printf("Texture pixel 0: %d\n", mlx->west_texture->pixels[0]);
+		printf("Texture width: %d, height: %d\n", game->west_texture->width, game->north_texture->height);
+        printf("Texture bytes per pixel: %d\n", game->west_texture->bytes_per_pixel);
+        printf("Texture pixels: %p\n", game->west_texture->pixels);
+        printf("Texture pixel 0: %d\n", game->west_texture->pixels[0]);
     }
 
 	return (0);

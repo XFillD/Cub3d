@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:56:48 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/02 15:09:38 by fhauba           ###   ########.fr       */
+/*   Updated: 2024/11/03 11:36:10 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,16 @@ void game_start(t_game *game)
 t_game *init_game()
 {
     t_game *game = ft_calloc(1, sizeof(t_game)); 
+	game->north_texture = NULL;
+    game->south_texture= NULL;
+    game->west_texture= NULL; 
+    game->east_texture= NULL;
+  	game->image= NULL;
     return(game); 
 }
 
 int main(int argc, char **argv)
 {
-	t_mlx mlx;
 	t_game *game; 
 	(void)argc;
 	(void)argv;
@@ -82,7 +86,7 @@ int main(int argc, char **argv)
 
 	game = init_game();
 
-	map_read(game, &mlx, argv[1]); 
+	map_read(game, argv[1]); 
 
 	/*↓TESTING↓*/
 	int x = 0; 
