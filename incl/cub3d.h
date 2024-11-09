@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yalechin <yalechin@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 12:32:52 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/03 16:34:56 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/09 15:16:50 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,14 +119,12 @@ typedef struct s_ray
 	float			hx;
 	float			hy;
 
-	float			interv;
-	float			interh;
-
 	float			wall_hit_x;
 	float			wall_hit_y;
 
 	t_enums			direction;
 	int				index;
+	double			wall_h;
 }					t_ray;
 
 typedef struct s_mlx
@@ -183,18 +181,22 @@ void				ft_release(mlx_key_data_t keydata, t_mlx *mlx);
 
 /*3D RENDERING*/
 void				render_wall(t_mlx *mlx, int ray);
-int					check_wall(float x, float y, t_mlx *mlx);
 void				detect_texture(t_mlx *mlx);
 void				draw_floor_ceiling(t_mlx *mlx, int ray, int top_pix,
 						int bottom_pix);
 void				get_texture_x(t_mlx *mlx, mlx_texture_t *image);
-void				get_texture_y(t_mlx *mlx, mlx_texture_t *image, int top_pix,
-						int bottom_pix, int wall_height);
+int					check_wall(float x, float y, t_mlx *mlx);
 
 /*OTHER UTILS*/
 void				ft_pixel_put(t_mlx *mlx, int x, int y, int color);
 float				angle_nor(float angle);
 void				error(char *error_text);
+int					bytes_reverse(int c);
+int					get_rgba(int r, int g, int b, int a);
+int					get_color_of_texture(int x, int y, mlx_texture_t *image);
+void				check_empty_line(const char *line);
+int					is_map_line(t_game *game, const char *line);
+void				remove_newline_all(t_game *game);
 
 /*CHECKS*/
 int					map_check(t_game *game);

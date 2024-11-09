@@ -3,56 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yalechin <yalechin@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 15:57:40 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/03 16:36:11 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/09 15:00:42 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/cub3d.h"
-
-/*checks if a given angle is in a direction corresponding
-to positive movement along the x-axis
-or negative movement along the y-axis*/
-int	angle_check(float angle, char c)
-{
-	if (c == 'x')
-	{
-		if (angle > 0 && angle < M_PI)
-			return (1);
-	}
-	else if (c == 'y')
-	{
-		if (angle > (M_PI / 2) && angle < (3 * M_PI) / 2)
-			return (1);
-	}
-	return (0);
-}
-
-// check the intersection - adjust the direction of movement based on angle
-int	check_inter(float angle, float *inter, float *step, int hrzntl)
-{
-	if (hrzntl)
-	{
-		if (angle > 0 && angle < M_PI)
-		{
-			*inter += S_SQUARE;
-			return (-1);
-		}
-		*step *= -1;
-	}
-	else
-	{
-		if (!(angle > M_PI / 2 && angle < 3 * M_PI / 2))
-		{
-			*inter += S_SQUARE;
-			return (-1);
-		}
-		*step *= -1;
-	}
-	return (1);
-}
 
 // calculate vetical intersection
 float	vertical(t_mlx *mlx, float angle)
@@ -110,25 +68,38 @@ float	horizontal(t_mlx *mlx, float angle)
 				2)));
 }
 
-void setFlag(double inter_h, double inter_v, t_mlx *mlx)
+void	set_flag(double inter_h, double inter_v, t_mlx *mlx)
 {
-    if(inter_v < inter_h)
-    {
-        mlx->game->was_hit_vertical = 1; 
-        if (cos(mlx->ray->r_angle) > 0)
+	if (inter_v < inter_h)
+	{
+		mlx->game->was_hit_vertical = 1;
+		if (cos(mlx->ray->r_angle) > 0)
 			mlx->ray->direction = _EAST;
 		else
 			mlx->ray->direction = _WEST;
-
-    }
-    else 
-    {
-        mlx->game->was_hit_vertical = 0;
-        if (sin(mlx->ray->r_angle) > 0)
+	}
+	else
+	{
+		mlx->game->was_hit_vertical = 0;
+		if (sin(mlx->ray->r_angle) > 0)
 			mlx->ray->direction = _SOUTH;
 		else
 			mlx->ray->direction = _NORTH;
-    }
+	}
+}
+
+void	set_wall_hit(double inter_h, double inter_v, t_mlx *mlx)
+{
+	if (inter_h < inter_v)
+	{
+		mlx->ray->wall_hit_x = mlx->ray->hx;
+		mlx->ray->wall_hit_y = mlx->ray->hy;
+	}
+	else
+	{
+		mlx->ray->wall_hit_x = mlx->ray->vx;
+		mlx->ray->wall_hit_y = mlx->ray->vy;
+	}
 }
 
 // main ray calculation
@@ -141,21 +112,7 @@ void	ray_caster(t_mlx *mlx, double inter_h, double inter_v, int ray)
 		mlx->ray->wall = 0;
 		inter_h = horizontal(mlx, angle_nor(mlx->ray->r_angle));
 		inter_v = vertical(mlx, angle_nor(mlx->ray->r_angle));
-		
-		if(mlx->ray->interh < mlx->ray->interv)
-        {
-            mlx->ray->wall_hit_x = mlx->ray->hx;
-            mlx->ray->wall_hit_y = mlx->ray->hy;
-        }
-        else 
-        {
-            mlx->ray->wall_hit_x = mlx->ray->vx;
-            mlx->ray->wall_hit_y = mlx->ray->vy;
-        }
-
-		mlx->ray->interh = inter_h;
-		mlx->ray->interv = inter_v;
-		
+		set_wall_hit(inter_h, inter_v, mlx);
 		if (inter_v <= inter_h)
 			mlx->ray->distance = inter_v;
 		else
@@ -163,7 +120,7 @@ void	ray_caster(t_mlx *mlx, double inter_h, double inter_v, int ray)
 			mlx->ray->distance = inter_h;
 			mlx->ray->wall = 1;
 		}
-		setFlag(inter_h, inter_v, mlx);
+		set_flag(inter_h, inter_v, mlx);
 		if (inter_v < inter_h)
 			draw_ray_mini(mlx, mlx->ray->vx, mlx->ray->vy, 0xFFFFC0CB);
 		else

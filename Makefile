@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+         #
+#    By: yalechin <yalechin@student.42prague.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/24 17:27:32 by yalechin          #+#    #+#              #
-#    Updated: 2024/11/02 13:24:54 by yalechin         ###   ########.fr        #
+#    Updated: 2024/11/09 15:17:24 by yalechin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,10 @@ CFILES = srcs/cub3d.c \
 			srcs/render_wall.c \
 			srcs/map_check.c \
 			srcs/map_check2.c \
-			srcs/render.c
+			srcs/render.c \
+			srcs/render_other.c \
+			srcs/ray_utils.c \
+			srcs/line_utils.c 
 OFILES = $(CFILES:.c=.o)
 
 FLAGS = -O3 -Wall -Wextra -Werror -g
