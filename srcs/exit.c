@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:14:53 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/02 13:14:51 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/14 15:48:38 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	close_game_callback(void *param)
 	t_mlx	*mlx;
 
 	mlx = (t_mlx *)param;
+	free_textures(mlx->game);
 	ft_exit(mlx);
 	exit(0);
 }
@@ -79,6 +80,8 @@ void	clear_game(t_game *game)
 // exit the game, free memory
 void	ft_exit(t_mlx *mlx)
 {
+	if (mlx->game->design_config)
+		free_design_config(mlx->game->design_config);
 	if (mlx->game)
 		clear_game(mlx->game);
 	if (mlx->player)

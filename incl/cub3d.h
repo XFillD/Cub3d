@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42prague.com    +#+  +:+       +#+        */
+/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 12:32:52 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/09 15:16:50 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/14 15:34:51 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,9 @@ void				check_and_exit(int condition, t_game *game,
 						const char *message);
 void				ft_exit_simple(t_game *game);
 void				close_game_callback(void *param);
+void				free_textures(t_game *game);
+void				free_floor_ceiling(t_design_config *config);
+void				free_design_config(t_design_config *config);
 
 /*PLAYER MOVEMENT*/
 void				hook(t_mlx *mlx, double move_v, double move_h);
