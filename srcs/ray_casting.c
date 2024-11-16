@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42prague.com    +#+  +:+       +#+        */
+/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 15:57:40 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/09 15:00:42 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:07:00 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,10 @@ void	set_flag(double inter_h, double inter_v, t_mlx *mlx)
 	if (inter_v < inter_h)
 	{
 		mlx->game->was_hit_vertical = 1;
-		if (cos(mlx->ray->r_angle) > 0)
-			mlx->ray->direction = _EAST;
-		else
-			mlx->ray->direction = _WEST;
 	}
 	else
 	{
 		mlx->game->was_hit_vertical = 0;
-		if (sin(mlx->ray->r_angle) > 0)
-			mlx->ray->direction = _SOUTH;
-		else
-			mlx->ray->direction = _NORTH;
 	}
 }
 

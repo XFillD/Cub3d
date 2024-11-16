@@ -6,7 +6,7 @@
 /*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 12:27:51 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/02 12:53:53 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:05:28 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,15 @@ void	check_player(t_game *game)
 	{
 		error("NO PLAYER FOUND!");
 		ft_exit_simple(game);
+	}
+}
+
+void	file_check(void)
+{
+	if (open(T_EAST, O_RDONLY) == -1 || open(T_NORTH, O_RDONLY) == -1
+		|| open(T_SOUTH, O_RDONLY) == -1 || open(T_WEST, O_RDONLY) == -1)
+	{
+		error("Files could not be opened!");
+		exit(1);
 	}
 }

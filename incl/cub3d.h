@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 12:32:52 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/14 15:34:51 by fhauba           ###   ########.fr       */
+/*   Updated: 2024/11/16 17:05:41 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@
 
 # define FAIL 1
 # define SUCCESS 0
+
+# define T_NORTH "cat_textures/NORTH.png"
+# define T_SOUTH "cat_textures/SOUTH.png"
+# define T_WEST "cat_textures/WEST.png"
+# define T_EAST "cat_textures/EAST.png"
 
 typedef struct s_player
 {
@@ -95,18 +100,8 @@ typedef struct s_game
 	float			y_textures;
 	int				was_hit_vertical;
 	int				map_flag;
+	int				line_flag;
 }					t_game;
-
-typedef enum e_enums
-{
-	_NORTH,
-	_WEST,
-	_SOUTH,
-	_EAST,
-	_COLOR_F,
-	_COLOR_C,
-	_NONE
-}					t_enums;
 
 typedef struct s_ray
 {
@@ -122,7 +117,6 @@ typedef struct s_ray
 	float			wall_hit_x;
 	float			wall_hit_y;
 
-	t_enums			direction;
 	int				index;
 	double			wall_h;
 }					t_ray;
@@ -197,9 +191,15 @@ void				error(char *error_text);
 int					bytes_reverse(int c);
 int					get_rgba(int r, int g, int b, int a);
 int					get_color_of_texture(int x, int y, mlx_texture_t *image);
-void				check_empty_line(const char *line);
-int					is_map_line(t_game *game, const char *line);
+void				check_empty_line(const char *line, t_game *game);
+int					is_map_line(t_game *game, const char *line, size_t x,
+						size_t count);
 void				remove_newline_all(t_game *game);
+int					ft_strncmp2(char *s1, char *s2, size_t n);
+void				get_colours(char *buffer, int *r, int *g, int *b);
+int					buffer_check(char **buffer, int rows);
+void				init_arrays(t_game *game, int rows);
+void				file_check(void);
 
 /*CHECKS*/
 int					map_check(t_game *game);

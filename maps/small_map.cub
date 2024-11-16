@@ -1,10 +1,10 @@
-NO assets/sprites/north_wall.xpm
-SO assets/sprites/south_wall.xpm
-EA assets/sprites/east_wall.xpm
-WE assets/sprites/west_wall.xpm
+NO cat_textures/NORTH.png
+SO cat_textures/SOUTH.png
+EA cat_textures/EAST.png
+WE cat_textures/WEST.png
 
-C 53,41,34
-F 45,33,27
+C 235,247,255
+F 140,119,117
 
   111111111111111111111111
 1100000N000011

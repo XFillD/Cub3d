@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:14:53 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/15 15:18:53 by fhauba           ###   ########.fr       */
+/*   Updated: 2024/11/16 13:37:38 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,9 @@ void	ft_exit(t_mlx *mlx)
 		free(mlx->player);
 	if (mlx->ray)
 		free(mlx->ray);
-	if (mlx)
-	{
-		mlx_delete_image(mlx->p_mlx, mlx->img);
-		mlx_close_window(mlx->p_mlx);
-		mlx_terminate(mlx->p_mlx);
-	}
+	mlx_delete_image(mlx->p_mlx, mlx->img);
+	mlx_close_window(mlx->p_mlx);
+	mlx_terminate(mlx->p_mlx);
 	printf(COLOUR_GREEN "THANK YOU FOR PLAYING :3\n" COLOUR_RESET);
 	exit(0);
 }

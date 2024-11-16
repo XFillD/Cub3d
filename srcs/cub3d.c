@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42prague.com    +#+  +:+       +#+        */
+/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:56:48 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/09 15:27:02 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:05:15 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	main(int argc, char **argv)
 	t_game	*game;
 
 	check_argv(argv[1]);
+	file_check();
 	if (argc != 2)
 	{
 		error("Invalid number of arguments!");
