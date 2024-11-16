@@ -6,7 +6,7 @@
 /*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 12:32:52 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/16 17:05:41 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:19:13 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,5 +205,6 @@ void				file_check(void);
 int					map_check(t_game *game);
 void				check_argv(char *argv);
 void				check_player(t_game *game);
+void				empty_line_error(t_game *game);
 
 #endif

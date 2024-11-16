@@ -6,7 +6,7 @@
 /*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:46:46 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/02 12:53:50 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:48:02 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,30 +63,31 @@ int	last_c_get(int row_n, int map_h, char *row)
 		return (ft_strlen(row) - 2);
 }
 
-int	space_check(t_game *game, int row, int col, int last_c)
+int	space_check(t_game *game, int r, int c, int last_c)
 {
 	last_c = 0;
-	while (row < game->map_h)
+	while (r < game->map_h)
 	{
-		col = 0;
-		while (game->map[row][col] == ' ')
-			col++;
-		last_c = last_c_get(row, game->map_h, game->map[row]);
-		while (col < last_c)
+		c = 0;
+		while (game->map[r][c] == ' ')
+			c++;
+		last_c = last_c_get(r, game->map_h, game->map[r]);
+		while (c < last_c)
 		{
-			if (game->map[row][col] == '0' && row != 0 && row != game->map_h
-				- 1)
+			if (game->map[r][c] == '0' && r != 0 && r != game->map_h - 1)
 			{
-				if (game->map[row + 1][col] == ' ')
+				if (!game->map[r + 1][c] || !game->map[r - 1][c])
 					return (FAIL);
-				if (game->map[row - 1][col] == ' ')
+				if (game->map[r + 1][c] == ' ')
+					return (FAIL);
+				if (game->map[r - 1][c] == ' ')
 					return (FAIL);
 			}
-			col++;
+			c++;
 		}
-		if (game->map[row][last_c] != '1')
+		if (game->map[r][last_c] != '1')
 			return (FAIL);
-		row++;
+		r++;
 	}
 	return (0);
 }

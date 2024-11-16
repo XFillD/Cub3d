@@ -6,7 +6,7 @@
 /*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:03:47 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/16 17:01:35 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:19:29 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,7 @@ int	map_read(t_game *game, char *file, int x, int i)
 	game->buffer[i] = NULL;
 	game->map[x] = NULL;
 	close(fd);
-	if (game->line_flag)
-		ft_exit_simple(game);
+	empty_line_error(game);
 	prepare_textures(game, i);
 	return (SUCCESS);
 }
