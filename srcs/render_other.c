@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_other.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42prague.com    +#+  +:+       +#+        */
+/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 14:42:56 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/09 15:21:21 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/17 12:58:12 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_wall(float x, float y, t_mlx *mlx)
 	map_y = floor(y / S_SQUARE);
 	if (map_y >= mlx->game->map_h || map_x >= mlx->game->map_w)
 		return (0);
-	if (mlx->game->map[map_y] && map_x <= (int)strlen(mlx->game->map[map_y]))
+	if (mlx->game->map[map_y] && map_x <= (int)ft_strlen(mlx->game->map[map_y]))
 	{
 		if (mlx->game->map[map_y][map_x] == '1')
 			return (0);

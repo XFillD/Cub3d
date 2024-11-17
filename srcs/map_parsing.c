@@ -6,7 +6,7 @@
 /*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:03:47 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/16 17:19:29 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/17 12:25:47 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	parse_design_config(t_design_config *config, char **buffer, int rows)
 	while (i < rows)
 	{
 		if (ft_strncmp2(buffer[i], "NO ", 3) == 0)
-			config->north_texture = strdup(buffer[i] + 3);
+			config->north_texture = ft_strdup(buffer[i] + 3);
 		else if (ft_strncmp2(buffer[i], "SO ", 3) == 0)
-			config->south_texture = strdup(buffer[i] + 3);
+			config->south_texture = ft_strdup(buffer[i] + 3);
 		else if (ft_strncmp2(buffer[i], "WE ", 3) == 0)
-			config->west_texture = strdup(buffer[i] + 3);
+			config->west_texture = ft_strdup(buffer[i] + 3);
 		else if (ft_strncmp2(buffer[i], "EA ", 3) == 0)
-			config->east_texture = strdup(buffer[i] + 3);
+			config->east_texture = ft_strdup(buffer[i] + 3);
 		else if (ft_strncmp2(buffer[i], "F ", 2) == 0)
 			get_colours(buffer[i] + 1, &config->floor_color[0],
 				&config->floor_color[1], &config->floor_color[2]);

@@ -6,7 +6,7 @@
 /*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 15:15:31 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/16 16:50:09 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/17 12:29:37 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	remove_newline(char *str)
 {
 	size_t	len;
 
-	len = strlen(str);
+	len = ft_strlen(str);
 	if (len > 0 && str[len - 1] == '\n')
 	{
 		str[len - 1] = '\0';
