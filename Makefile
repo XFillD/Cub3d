@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+         #
+#    By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/24 17:27:32 by yalechin          #+#    #+#              #
-#    Updated: 2024/11/16 15:25:08 by yalechin         ###   ########.fr        #
+#    Updated: 2024/11/17 14:10:32 by fhauba           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ MLX_FLAGS = -L$(MLX_PATH) -lmlx42 -lglfw -lGL -lXext -lX11 -lm
 all: lib $(NAME) 
 
 lib:
-#@make -C $(MLX_PATH)
+	@make -C $(MLX_PATH)
 	@make -C $(LIBFT)
 
 
@@ -55,10 +55,12 @@ $(NAME): $(OFILES)
 clean: 
 	rm -f $(OFILES)
 	@make clean -C $(LIBFT)
+	@make clean -C $(MLX_PATH)
 
 fclean: clean
 	rm -f $(NAME)
 	@make fclean -C $(LIBFT)
+	@make clean -C $(MLX_PATH)
 
 re: fclean all
 
