@@ -6,7 +6,7 @@
 /*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:03:47 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/17 12:25:47 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/17 13:50:43 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,14 @@ void	prepare_textures(t_game *game, int i)
 	parse_design_config(config, game->buffer, i);
 	game->design_config = config;
 	remove_newline_all(game);
-	game->north_texture = mlx_load_png(game->design_config->north_texture);
-	game->south_texture = mlx_load_png(game->design_config->south_texture);
-	game->west_texture = mlx_load_png(game->design_config->west_texture);
-	game->east_texture = mlx_load_png(game->design_config->east_texture);
+	if(!(game->north_texture = mlx_load_png(game->design_config->north_texture)) \
+	|| !(game->south_texture = mlx_load_png(game->design_config->south_texture)) \
+	|| !(game->west_texture = mlx_load_png(game->design_config->west_texture)) \
+	|| !(game->east_texture = mlx_load_png(game->design_config->east_texture)))
+	{
+		error("TEXTURE LOAD ERROR!");
+		ft_exit_simple(game);
+	}
 }
 
 // parse the file - store data in the structs
