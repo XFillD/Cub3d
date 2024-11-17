@@ -6,7 +6,7 @@
 /*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:03:47 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/17 15:09:58 by fhauba           ###   ########.fr       */
+/*   Updated: 2024/11/17 15:25:04 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	prepare_textures(t_game *game, int i)
 		ft_exit_simple(game);
 	}
 	config = (t_design_config *)ft_calloc(sizeof(t_design_config), 1);
+	if (!config)
+		ft_exit(game->mlx);
 	parse_design_config(config, game->buffer, i);
 	game->design_config = config;
 	remove_newline_all(game);

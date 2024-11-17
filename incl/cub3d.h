@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 12:32:52 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/16 17:19:13 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:19:40 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@
 # define T_WEST "cat_textures/WEST.png"
 # define T_EAST "cat_textures/EAST.png"
 
+typedef struct s_mlx	t_mlx;
+typedef struct s_game	t_game;
+
 typedef struct s_player
 {
 	int				p_x;
@@ -74,7 +77,7 @@ typedef struct s_design_config
 	int				ceiling_color[3];
 }					t_design_config;
 
-typedef struct s_game
+struct s_game
 {
 	// char **map_test;
 	char			**map;
@@ -83,6 +86,7 @@ typedef struct s_game
 	int				player_y;
 	int				map_h;
 	int				map_w;
+	t_mlx			*mlx;
 
 	int				m_map_w;
 	int				m_map_h;
@@ -101,7 +105,7 @@ typedef struct s_game
 	int				was_hit_vertical;
 	int				map_flag;
 	int				line_flag;
-}					t_game;
+};
 
 typedef struct s_ray
 {
@@ -121,7 +125,7 @@ typedef struct s_ray
 	double			wall_h;
 }					t_ray;
 
-typedef struct s_mlx
+struct s_mlx
 {
 	t_game			*game;
 	t_player		*player;
@@ -129,7 +133,7 @@ typedef struct s_mlx
 	int				counter;
 	mlx_image_t		*img;
 	t_ray			*ray;
-}					t_mlx;
+};
 
 void				game_loop(void *p_mlx);
 

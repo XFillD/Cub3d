@@ -6,7 +6,7 @@
 /*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:14:53 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/17 15:06:18 by fhauba           ###   ########.fr       */
+/*   Updated: 2024/11/17 15:24:23 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,22 +81,26 @@ void	clear_game(t_game *game)
 // exit the game, free memory
 void	ft_exit(t_mlx *mlx)
 {
-	if (mlx->p_mlx)
+	if (mlx)
 	{
-		if (mlx->img)
-			mlx_delete_image(mlx->p_mlx, mlx->img);
-		mlx_close_window(mlx->p_mlx);
+		if (mlx->p_mlx)
+		{
+			if (mlx->img)
+				mlx_delete_image(mlx->p_mlx, mlx->img);
+			mlx_close_window(mlx->p_mlx);
+		}
+		free_textures(mlx->game);
+		if (mlx->game->design_config)
+			free_design_config(mlx->game->design_config);
+		if (mlx->game)
+			clear_game(mlx->game);
+		if (mlx->player)
+			free(mlx->player);
+		if (mlx->ray)
+			free(mlx->ray);
+		if (mlx->p_mlx)
+			mlx_terminate(mlx->p_mlx);
 	}
-	free_textures(mlx->game);
-	free_design_config(mlx->game->design_config);
-	if (mlx->game)
-		clear_game(mlx->game);
-	if (mlx->player)
-		free(mlx->player);
-	if (mlx->ray)
-		free(mlx->ray);
-	if (mlx->p_mlx)
-		mlx_terminate(mlx->p_mlx);
 	printf(COLOUR_GREEN "THANK YOU FOR PLAYING :3\n" COLOUR_RESET);
 	exit(0);
 }
