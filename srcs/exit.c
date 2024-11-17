@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fhauba <fhauba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:14:53 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/17 14:44:00 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/17 14:53:07 by fhauba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void	ft_exit(t_mlx *mlx)
 {
 	if(mlx->p_mlx)
 	{
-		mlx_delete_image(mlx->p_mlx, mlx->img);
+		if(mlx->img)
+			mlx_delete_image(mlx->p_mlx, mlx->img);
 		mlx_close_window(mlx->p_mlx);
 	}
 	free_textures(mlx->game);
