@@ -6,7 +6,7 @@
 /*   By: yalechin <yalechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:56:48 by yalechin          #+#    #+#             */
-/*   Updated: 2024/11/17 12:54:52 by yalechin         ###   ########.fr       */
+/*   Updated: 2024/11/17 13:10:27 by yalechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ void	game_start(t_game *game)
 
 	mlx.game = game;
 	mlx.player = ft_calloc(1, sizeof(t_player));
-	mlx.p_mlx = mlx_init(S_W, S_H, "CUB3D", 0);
 	mlx.ray = ft_calloc(1, (sizeof(t_ray) * S_W));
 	player_init(&mlx);
+	mlx.p_mlx = mlx_init(S_W, S_H, "CUB3D", 0);
+	if(!mlx.p_mlx)
+		ft_exit(&mlx);
 	mlx_loop_hook(mlx.p_mlx, &game_loop, &mlx);
 	mlx_key_hook(mlx.p_mlx, &mlx_key, &mlx);
 	mlx_close_hook(mlx.p_mlx, close_game_callback, &mlx);
